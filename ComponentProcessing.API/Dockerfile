@@ -7,16 +7,23 @@ FROM mcr.microsoft.com/dotnet/aspnet:5.0 AS base
 WORKDIR /app
 EXPOSE 80
 
+
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["ComponentProcessing.API/ComponentProcessing.API.csproj", "ComponentProcessing.API/"]
-RUN dotnet restore "ComponentProcessing.API/ComponentProcessing.API.csproj"
-COPY . .
-WORKDIR "/src/ComponentProcessing.API"
-RUN dotnet build "ComponentProcessing.API.csproj" -c Release -o /app/build
+COPY *.csproj ./
 
+
+
+RUN dotnet restore
+
+
+
+COPY . ./
 FROM build AS publish
 RUN dotnet publish "ComponentProcessing.API.csproj" -c Release -o /app/publish
+
+
 
 FROM base AS final
 WORKDIR /app
