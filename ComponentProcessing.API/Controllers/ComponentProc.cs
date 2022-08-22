@@ -69,7 +69,7 @@ namespace ComponentProcessing.API.Controllers
                     Console.WriteLine("Any String");
                     return BadRequest(ModelState);
                 }
-                var request = new HttpRequestMessage(HttpMethod.Get, $"https://chargeapi.azurewebsites.net/api/PackProcessing?comType={compDto.componentType}&quantity={compDto.quantity}");
+                var request = new HttpRequestMessage(HttpMethod.Get, $"http://20.225.16.181/api/PackProcessing?comType={compDto.componentType}&quantity={compDto.quantity}");
                 request.Headers.Add("Accept", "application/json");
                 var client = _clientFactory.CreateClient();
                 var response = await client.SendAsync(request);
